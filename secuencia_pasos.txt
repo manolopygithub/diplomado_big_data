@@ -1,0 +1,28 @@
+=============================================================================================================
+Secuencia de Pasos - Tarea - Modulo V - Diplomado Big Data and Bussines Analytics - Manuel A. Berni
+=============================================================================================================
+1- Tener presente el archivo docker-compose.yml
+2- Ejecutar en linea de comando la setencia
+   docker-compose up -d
+3- python -m venv env
+4- cd /env/Scripts
+5- activate.bat
+6- pip install --upgrade pip
+7- pip install kafka-python
+8- docker exec -it redpanda rpk cluster info (para ver que todo este Ok, antes de crear el Topics)
+9- docker exec -it redpanda rpk topic create finnhub-trades
+10- pip install websocket-client
+11- docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
+12- CREATE STREAM finnhub_trades_stream (
+    price DOUBLE,
+    symbol STRING,
+    fecha_hora TIMESTAMP,
+    volume DOUBLE
+) WITH (
+    KAFKA_TOPIC='finnhub-trades',
+    VALUE_FORMAT='JSON'
+);
+13- select symbol, sum(price)/count(price) as promedio from finnhub_trades_stream group by symbol emit changes;
+    select symbol, count(symbol) as cantidad_transacciones from finnhub_trades_stream group by symbol emit changes;
+	select symbol, max(price) as maximo_precio from finnhub_trades_stream group by symbol emit changes;
+	select symbol, min(price) as minimo_precio from finnhub_trades_stream group by symbol emit changes;

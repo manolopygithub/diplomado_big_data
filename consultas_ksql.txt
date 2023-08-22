@@ -1,0 +1,23 @@
+=============================================================================================================
+Sentencias KSQL - Tarea - Modulo V - Diplomado Big Data and Bussines Analytics - Manuel A. Berni
+=============================================================================================================
+
+================================================================================================================
+1- ¿Cuál fue el promedio ponderado de precio de una unidad por cada uno de los símbolos procesados? (e.j. AAPL)
+===============================================================================================================
+select symbol, sum(price)/count(price) as promedio from finnhub_trades_stream group by symbol emit changes;
+
+================================================================================================================
+2- ¿Cuántas transacciones se procesaron por símbolo?
+================================================================================================================
+select symbol, count(symbol) as cantidad_transacciones from finnhub_trades_stream group by symbol emit changes;
+
+================================================================================================================
+3- ¿Cuál fue el máximo precio registrado por símbolo?
+================================================================================================================
+select symbol, max(price) as maximo_precio from finnhub_trades_stream group by symbol emit changes;
+
+================================================================================================================
+4- ¿Cuál fue el mínimo precio registrado por símbolo?
+================================================================================================================
+select symbol, min(price) as minimo_precio from finnhub_trades_stream group by symbol emit changes;
